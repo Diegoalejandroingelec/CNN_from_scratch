@@ -1,4 +1,4 @@
 tqdm
 tensorflow
 dill
-sklearn
+scikit-learn
