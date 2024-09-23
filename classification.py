@@ -36,9 +36,8 @@ if(train_only or train_and_test):
 if(test_only or train_and_test):
     
     CNN=load_model("cnn.pkl")
-    W,B=CNN.get_weights()
-    # print(f"Weights shape {W}")
-    # print(f"Biases shape {B}")
+    
+    CNN.summary()
     predicted_class=[]
     ground_truth_class =[]
     count_incorrect_1 = 0

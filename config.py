@@ -1,7 +1,7 @@
-from fully_connected_layer import FullyConnected
-from flatten_layer import Flatten
-from conv2D import Conv2D
-from sigmoid import Sigmoid
+from layers.fully_connected_layer import FullyConnected
+from layers.flatten_layer import Flatten
+from layers.conv2D import Conv2D
+from layers.sigmoid import Sigmoid
 
 model = [
     Conv2D(6,(3,3),(1,28,28)),

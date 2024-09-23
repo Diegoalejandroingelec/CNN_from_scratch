@@ -24,19 +24,63 @@ class NeuralNetwork():
 
         return error
     
-    def get_weights(self):
+    def get_network_info(self):
         network_w=[]
         network_B=[]
+        layers_name = []
+        layers_shapes = {'layers_input_shape':[],'layers_output_shape':[]}
         for layer in self.model:
+            if(hasattr(layer, 'W')):
+                network_w.append(layer.W)
+                network_B.append(layer.B)
+                layers_name.append(type(layer).__name__)
+                layers_shapes['layers_input_shape'].append(layer.input_shape)
+                layers_shapes['layers_output_shape'].append(layer.output_shape)
+            elif(hasattr(layer, 'K')):
+                network_w.append(layer.K)
+                network_B.append(layer.B)
+                layers_name.append(type(layer).__name__)
+                layers_shapes['layers_input_shape'].append(layer.input_shape)
+                layers_shapes['layers_output_shape'].append(layer.output_shape)
+            else:
+                if(hasattr(layer, 'input_shape') and hasattr(layer, 'output_shape')):
+                    layers_shapes['layers_input_shape'].append(layer.input_shape)
+                    layers_shapes['layers_output_shape'].append(layer.output_shape)
+                else:
+                    layers_shapes['layers_input_shape'].append(layers_shapes['layers_output_shape'][-1])
+                    layers_shapes['layers_output_shape'].append(layers_shapes['layers_output_shape'][-1])
+
+                network_w.append(None)
+                network_B.append(None)
+                layers_name.append(type(layer).__name__)
+
            
-           try:
-            network_w.append(layer.W)
-            network_B.append(layer.B)
-           except:
-            network_w.append(None)
-            network_B.append(None)
-           
-        return network_w, network_B
+        return network_w, network_B,layers_name,layers_shapes
+    
+    def summary(self):
+
+        network_w, network_B,layers_name,layers_shapes = self.get_network_info()
+        print('')
+        print('######### NETWORK SUMMARY #########')
+        print('')
+        for w,b,layer_name,layer_input_shape,layer_output_shape in zip(network_w, network_B,layers_name,layers_shapes['layers_input_shape'],layers_shapes['layers_output_shape']):
+            if(w is not None and b is not None):
+                print('')
+                print(f'{layer_name}')
+                print(f'Input shape: {layer_input_shape}')
+                print(f'Output shape: {layer_output_shape}')
+                print(f'Weights: shape--> {w.shape}  #Parameters--> {w.size}')
+                print(f'Biases:  shape--> {b.shape}  #Parameters--> {b.size}')
+                print(f'The total number of parameter in this layer is {w.size+b.size}')
+                print('')
+            else:
+                print('')
+                print(f'{layer_name}')
+                print(f'Input shape: {layer_input_shape}')
+                print(f'Output shape: {layer_output_shape}')
+                print('This layer does not have trainable parameters')
+                print('')
+
     
     def fit(self, X,Y,X_test,Y_test, epochs, verbose):
        
