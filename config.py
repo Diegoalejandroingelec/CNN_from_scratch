@@ -22,6 +22,6 @@ epochs = 50  # Train for 50 epochs
 lr = 0.1  # Learning rate for backpropagation
 
 # Flags to determine the mode of operation
-train_and_test = False  # Set to True if the model should both train and test
+train_and_test = True  # Set to True if the model should both train and test
 train_only = False      # Set to True if the model should only train
-test_only = True        # Set to True if the model should only test (skip training)
+test_only = False        # Set to True if the model should only test (skip training)
