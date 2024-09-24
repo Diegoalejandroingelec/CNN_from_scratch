@@ -2,3 +2,4 @@ tqdm
 tensorflow
 dill
 scikit-learn
+matplotlib
