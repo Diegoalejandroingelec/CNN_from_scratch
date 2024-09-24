@@ -2,7 +2,7 @@
 
 ### 1. Create a code space in Gitbug
 
-- Click on the `Code` Button
+- Click on the `<> Code` Button
 - Select the **Codespaces** tab from the dropdown
 - Click **Create Codespace on main**
 - GitHub will initialize the environment and set up your Codespace.
