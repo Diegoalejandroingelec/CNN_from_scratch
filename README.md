@@ -4,7 +4,7 @@
 
 - Click on the `<> Code` Button
 - Select the **Codespaces** tab from the dropdown
-- Click **Create Codespace on main**
+- Click **Create Codespace on master**
 - GitHub will initialize the environment and set up your Codespace.
 
 ### 2. Make sure the shell script is executable
