@@ -25,3 +25,4 @@ lr = 0.1  # Learning rate for backpropagation
 train_and_test = True  # Set to True if the model should both train and test
 train_only = False      # Set to True if the model should only train
 test_only = False        # Set to True if the model should only test (skip training)
+visualize_features = False #Set to True to visualize the feature extraction process

@@ -1,5 +1,5 @@
 from tqdm import tqdm  # Import tqdm for displaying a progress bar
-
+from utils import visualize_tensor
 # NeuralNetwork class definition
 class NeuralNetwork():
     def __init__(self, model, loss_f, loss_prime, lr):
@@ -17,7 +17,7 @@ class NeuralNetwork():
         self.loss_f = loss_f
         self.lr = lr
 
-    def predict(self, x):
+    def predict(self, x, visualize_features=False):
         """
         Perform a forward pass through the network to make a prediction.
         
@@ -27,9 +27,15 @@ class NeuralNetwork():
         Returns:
             output: The output after passing through all layers of the network.
         """
+        original_input = x.copy()
         output = x
         for layer in self.model:
             output = layer.forward(output)  # Pass the data through each layer
+            
+            if(type(layer).__name__ == 'Sigmoid' and  output.shape ==(6,26,26) and visualize_features):
+                visualize_tensor(original_input, output)
+            
+
         return output
 
     def back_propagation(self, prediction, ground_truth):

@@ -5,7 +5,7 @@ from keras.datasets import mnist  # MNIST dataset from Keras
 import numpy as np  # Numpy for numerical operations
 from utils import (print_performance_metrics, plot_training_curves, plot_confusion_matrix, 
                    data_preprocessing, plot_image, save_model, load_model)  # Utility functions
-from config import model, epochs, lr, train_and_test, train_only, test_only  # Configurations
+from config import model, epochs, lr, train_and_test, train_only, test_only, visualize_features  # Configurations
 
 # Load MNIST dataset and split into training and testing sets
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -39,7 +39,7 @@ if train_only or train_and_test:  # If either train_only or train_and_test flag 
 if test_only or train_and_test:  # If either test_only or train_and_test flag is True, proceed with testing
     
     # Load the trained model from the saved file
-    CNN = load_model("cnn.pkl")
+    CNN:NeuralNetwork = load_model("cnn.pkl")
     
     # Print a summary of the network architecture
     CNN.summary()
@@ -90,3 +90,19 @@ if test_only or train_and_test:  # If either test_only or train_and_test flag is
     
     # Print performance metrics (e.g., accuracy, precision, recall)
     print_performance_metrics(ground_truth_class, predicted_class)
+
+if visualize_features:
+    # Load the trained model from the saved file
+    CNN:NeuralNetwork = load_model("cnn.pkl")
+
+
+    # Loop through the test images and their corresponding ground truth labels
+    for n, image in enumerate(x_test):
+        # Predict the class for the current test image
+        if n%100 == 0:
+            visualize_features=True
+        else:
+            visualize_features=False
+
+
+        prediction = CNN.predict(image,visualize_features)

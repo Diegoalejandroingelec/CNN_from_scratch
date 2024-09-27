@@ -142,3 +142,38 @@ def load_model(filename):
     print(f"Model loaded from {filename} successfully!")
     
     return instance
+
+def visualize_tensor(original_image, tensor):
+    """
+    Visualize the original image along with its filters as subplots.
+
+    Args:
+        original_image (numpy array or similar structure): A 2D array representing the original image.
+        tensor (numpy array or similar structure): A tensor of shape (6, 26, 26) representing the filters.
+
+    Returns:
+        None. Displays a matplotlib figure with the original image and filter subplots.
+    """
+    # Create a figure with 1 large subplot on top and 6 subplots (2 rows, 3 columns) below
+    fig, axes = plt.subplots(3, 3, figsize=(10, 10))
+    
+    # Display the original image on the first row, spanning all 3 columns
+    axes[0, 1].imshow(original_image[0], cmap='gray')
+    axes[0, 1].set_title('Original Image')
+    axes[0, 0].axis('off')  # Turn off axis
+    
+    # Hide the other two axes in the first row
+    axes[0, 1].axis('off')
+    axes[0, 2].axis('off')
+    
+    # Flatten axes for easy iteration over the filter subplots
+    filter_axes = axes[1:, :].flatten()
+    
+    for i in range(6):
+        # Display each filter channel as an image in a subplot
+        filter_axes[i].imshow(tensor[i])
+        filter_axes[i].set_title(f'Filter {i+1}')
+        filter_axes[i].axis('off')  # Turn off axis
+
+    plt.tight_layout()
+    plt.show()
